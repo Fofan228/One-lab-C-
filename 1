@@ -1,0 +1,62 @@
+#include <string>
+#include <iostream>
+using namespace std;
+
+string BigEndian(char& number, int size)
+{
+	string output;
+	char* point;
+
+	for (int i = size - 1; i >= 0; i--)
+	{
+		point = &number + i;
+
+		for (int j = 7; j >= 0; j--)
+		{
+			output += ((*point >> j) & 1) ? '1' : '0';
+		}
+	}
+
+	return output;
+}
+string LittleEndian(char& number, int size)
+{
+	string output;
+	char* point;
+
+	for (int i = 0; i < size; i++)
+	{
+		point = &number + i;
+
+		for (int j = 7; j >= 0; j--)
+		{
+			output += ((*point >> j) & 1) ? '1' : '0';
+		}
+	}
+	return output;
+}
+int main()
+{
+	cout << "Input your number: ";
+
+	int number;
+	cin >> number;
+
+	float number_1 = number;
+	double number_2 = number;
+
+	cout << "int: " << endl;
+
+	cout << "Big-Endian: " + BigEndian((char&)number, sizeof(int)) << endl;
+	cout << "Little-Endian: " + LittleEndian((char&)number, sizeof(int)) << endl;
+
+	cout << "float: " << endl;
+
+	cout << "Big-Endian: " + BigEndian((char&)number, sizeof(float)) << endl;
+	cout << "Little-Endian: " + LittleEndian((char&)number, sizeof(float)) << endl;
+
+	cout << "double: " << endl;
+
+	cout << "Big-Endian: " + BigEndian((char&)number, sizeof(double)) << endl;
+	cout << "Little-Endian: " + LittleEndian((char&)number, sizeof(double)) << endl;
+}
